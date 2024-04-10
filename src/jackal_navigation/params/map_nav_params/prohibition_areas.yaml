@@ -1,0 +1,6 @@
+prohibition_areas:
+
+# define an obstacle line
+
+ - [[1.0, 1.0],
+    [3.0, 1.0]]
