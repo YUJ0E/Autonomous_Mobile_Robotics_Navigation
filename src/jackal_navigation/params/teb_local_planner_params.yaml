@@ -7,7 +7,7 @@ TebLocalPlannerROS:
   
  teb_autosize: True
  dt_ref: 0.25 #0.8 #0.4
- dt_hysteresis: 0.025 #0.1
+ dt_hysteresis: 0.035 #0.1
  global_plan_overwrite_orientation: True
  max_global_plan_lookahead_dist: 2.5
  feasibility_check_no_poses: 5

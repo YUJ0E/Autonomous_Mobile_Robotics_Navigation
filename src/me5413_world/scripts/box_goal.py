@@ -1,4 +1,5 @@
 # create a ros node to receive the goal pose
+#!/usr/bin/env python3
 import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
@@ -21,10 +22,7 @@ class goal:
         self.goal_pose = [0, 0]
         rospy.init_node('goal_publisher', anonymous=True)
         pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=10)
-        image_path = '4.jpg'
-        self.image = cv2.imread(image_path)
-        scale = 1
-        self.image_list = [cv2.resize(self.image, (0, 0), fx=scale * i / 10, fy=scale * i / 10) for i in range(2, 10)]
+        self.image_list = []
 
         rospy.Subscriber('/rviz_panel/goal_name', String, self.callback_first_start, pub)
         rospy.Subscriber('/front/image_raw', Image, self.callback_image, pub)
@@ -57,6 +55,8 @@ class goal:
         if data.data[1:4] == 'box':
             self.find_box = "box"
             self.box_idx = int(data.data[-1])
+            self.image = cv2.imread(str(self.box_idx) + '.jpg')
+            self.image_list = [cv2.resize(self.image, (0, 0), fx=0.1 * i, fy=0.1 * i) for i in range(2, 10)]
             goal_pose = PoseStamped()
             goal_pose.header.frame_id = 'map'
             goal_pose.pose.position.x = 8
@@ -71,7 +71,6 @@ class goal:
 
     def callback_pose(self, data, pub):
         # tf to get the robot pose in map frame
-
         self.pose = data.pose.pose
         self.orin = data.pose.pose.orientation
         robot_pose = [self.pose.position.x, self.pose.position.y]
@@ -90,13 +89,17 @@ class goal:
             goal_pose.pose.orientation.y = 0.0
             goal_pose.pose.orientation.z = 0.0
             goal_pose.pose.orientation.w = 1.0
+            if self.find_path_idx >= 2:
+                goal_pose.pose.orientation.z = 1
+                goal_pose.pose.orientation.w = 0
             self.goal_pose = [goal_pose.pose.position.x, goal_pose.pose.position.y]
 
             pub.publish(goal_pose)
 
     def callback_image(self, data, pub):
-        # use opencv to show the image
-        # change an Image to numpy
+        if len(self.image_list) == 0:
+            return
+
         height, width, channels = data.height, data.width, data.step
         frame = np.frombuffer(data.data, dtype=np.uint8).reshape(height, width, -1)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -126,7 +129,7 @@ class goal:
                 image_center_x = width / 2
                 target_x = max_loc[0] + image.shape[1] / 2
                 offset_x = target_x - image_center_x
-                angle_offset = (offset_x / width) / 1.0471975512
+                angle_offset = (offset_x / width) * 1.0471975512
 
                 target_orientation = yaw - angle_offset
                 if target_orientation > math.pi:
@@ -147,13 +150,14 @@ class goal:
                 box_pose.pose.orientation.w = quaternion[3]
                 self.wait_for_reach = True
                 self.adapt_count += 1
-                if self.adapt_count == 3:
-                    self.adapt_count = self.adapt_count % 3
+                if self.adapt_count % 3 == 0:
+                    self.adapt_count = self.adapt_count % 9
                     box_pose.pose.position.x = self.pose.position.x + (self.distance - 0.25) * math.cos(target_orientation)
                     box_pose.pose.position.y = self.pose.position.y + (self.distance - 0.25
                                                                        ) * math.sin(target_orientation)
-                    self.find_box = 'go_to_box'
                     print('Go to box')
+                    if self.adapt_count == 0:
+                        self.find_box = 'done'
                 pub.publish(box_pose)
                 break
 

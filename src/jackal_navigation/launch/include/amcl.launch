@@ -32,7 +32,7 @@
     <!-- Maximum distance to do obstacle inflation on map, for use in likelihood_field model. -->
     <param name="laser_likelihood_max_dist" value="2.0"/>
     <!-- Translational movement required before performing a filter update.  -->
-    <param name="update_min_d" value="0.2"/> 
+    <param name="update_min_d" value="0.02"/>
     <!-- 0.1 -->
     <!--Rotational movement required before performing a filter update. -->
     <param name="update_min_a" value="0.314"/>

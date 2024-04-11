@@ -7,22 +7,17 @@
     
     <rosparam file="$(find jackal_navigation)/params/map_nav_params/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find jackal_navigation)/params/map_nav_params/global_costmap_params.yaml" command="load" />
-    
-    <!-- <rosparam file="$(find jackal_navigation)/params/base_local_planner_params.yaml" command="load" /> -->
-    <!-- <rosparam file="$(find jackal_navigation)/params/dwa_local_planner_params.yaml" command="load" /> -->
+
     <rosparam file="$(find jackal_navigation)/params/teb_local_planner_params.yaml" command="load" />
-<!--     <rosparam file="$(find jackal_navigation)/params/costmap_converter_params.yaml" command="load" /> -->
     <rosparam file="$(find jackal_navigation)/params/move_base_params.yaml" command="load" />
 
     <rosparam file="$(find jackal_navigation)/params/map_nav_params/prohibition_areas.yaml" command="load" ns="global_costmap/costmap_prohibition_layer" />
     <rosparam file="$(find jackal_navigation)/params/map_nav_params/prohibition_areas.yaml" command="load" ns="local_costmap/costmap_prohibition_layer" />
 
-<!--     <param name="base_global_planner" type="string" value="navfn/NavfnROS" /> -->
     <param name="base_global_planner" value="global_planner/GlobalPlanner" />
     <param name="planner_frequency" value="1.0" />
     <param name="planner_patience" value="5.0" />
     <rosparam file="$(find jackal_navigation)/params/global_planner_params.yaml" command="load" />
-<!--     <param name="default_tolerance" value="15.0" /> -->
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
 
     <remap from="odom" to="odometry/filtered" />
