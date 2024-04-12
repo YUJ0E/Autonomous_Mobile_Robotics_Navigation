@@ -55,6 +55,7 @@ class goal:
         if data.data[1:4] == 'box':
             self.find_box = "box"
             self.box_idx = int(data.data[-1])
+            print(self.box_idx)
             self.image = cv2.imread(str(self.box_idx) + '.jpg')
             self.image_list = [cv2.resize(self.image, (0, 0), fx=0.1 * i, fy=0.1 * i) for i in range(2, 10)]
             goal_pose = PoseStamped()
@@ -151,7 +152,7 @@ class goal:
                 self.wait_for_reach = True
                 self.adapt_count += 1
                 if self.adapt_count % 3 == 0:
-                    self.adapt_count = self.adapt_count % 9
+                    self.adapt_count = self.adapt_count % 6
                     box_pose.pose.position.x = self.pose.position.x + (self.distance - 0.25) * math.cos(target_orientation)
                     box_pose.pose.position.y = self.pose.position.y + (self.distance - 0.25
                                                                        ) * math.sin(target_orientation)
