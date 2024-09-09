@@ -63,8 +63,7 @@ roslaunch me5413_world navigation.launch
 In Rviz you could choose `teb_global_planner` in full path and choose `teb_local_planner` in local path.
 
 Click the buttons of the bottom right panel in rviz and navigation to the specified pose
-```
-```
+
 ![rviz_panel](src/me5413_world/media/rviz_panel.png)
 
 To navigate to the boxes, you need to click Respawn Objects first.
