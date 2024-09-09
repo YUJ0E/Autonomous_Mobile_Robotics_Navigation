@@ -1,6 +1,6 @@
 # Autonomous_Mobile_Robotics_Navi
 
-This repository is the implementation for ME5413 Autonomous Mobile Robotics Final Project Navigation Part.
+This repository is the implementation for ME5413 Autonomous Mobile Robotics Final Project Navigation Part. And here is a video for the final simulation: https://youtu.be/t7T1ecBl5t8.
 >Created by Final Group 3
 
 For task requirements and details, please refer to (https://github.com/NUS-Advanced-Robotics-Centre/ME5413_Final_Project)
