@@ -58,7 +58,7 @@ In the second terminal launch the navigation node
 source devel/setup.bash
 roslaunch me5413_world navigation.launch
 ```
-![Rviz_navi](src/me5413_world/media/Rviz_navi.jpg)
+![Rviz_navi](src/me5413_world/media/Rviz_navi.png)
 
 In Rviz you could choose `teb_global_planner` in full path and choose `teb_local_planner` in local path.
 
@@ -68,9 +68,9 @@ Click the buttons of the bottom right panel in rviz and navigation to the specif
 To navigate to the boxes, you need to click Respawn Objects first.
 
 The required results (assembly line 2; box 4; vehicle 1) of our group are shown below:
-![assembly line 2](src/me5413_world/media/Assembly_line_2.jpg)
-![box_4](src/me5413_world/media/box_4.jpg)
-![vehicle 1](src/me5413_world/media/vehicle_1.jpg)
+![assembly line 2](src/me5413_world/media/Assembly_line_2.png)
+![box_4](src/me5413_world/media/box_4.png)
+![vehicle 1](src/me5413_world/media/vehicle_1.png)
 
 
 ## License
