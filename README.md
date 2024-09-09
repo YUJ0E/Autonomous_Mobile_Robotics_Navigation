@@ -58,7 +58,7 @@ In the second terminal launch the navigation node
 source devel/setup.bash
 roslaunch me5413_world navigation.launch
 ```
-![Rviz_navi](src/me5413_world/media/Rviz_navi.png)
+![Rviz_navi](src/me5413_world/media/Rviz_navigation.png)
 
 In Rviz you could choose `teb_global_planner` in full path and choose `teb_local_planner` in local path.
 
